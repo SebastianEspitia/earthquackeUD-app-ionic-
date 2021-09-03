@@ -1,0 +1,36 @@
+<ion-header>
+  <div id="titulo">EARTHQUAKE</div>
+</ion-header>
+<ion-content>
+  <div id="map"></div>
+
+  <div id="div-item" class="div-item">
+    {{sismo["descripcion"]}}
+  </div>
+  <div id="div-items-EH">
+    <div id="div-items">
+      <div>
+        <label>latitud</label>
+        {{sismo["latitud"]}}
+      </div>
+      <div>
+        <label>longitud</label>
+        {{sismo["longitud"]}}
+      </div>
+      <div>
+        <label>magnitud</label>
+        {{sismo["magnitud"]}}
+      </div>
+      <div>
+        <a (click)="clickComoActuar()">Como Actuar</a>
+      </div>
+    </div>
+    <div id="div-items-H">
+      <a (click)="showHospitales()">HOSPITALES</a>
+      <div id ="hospital" ></div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  universidad distrital
+</ion-footer>

@@ -1,0 +1,51 @@
+<ion-header>
+  <div id="backIcon" (click)="backpage()"><ion-icon name="backspace-outline"></ion-icon></div>
+  <div id="titulo">EARTHQUAKE</div>
+</ion-header>
+<ion-content>
+
+  <ion-item class="itemTituloBasico" lines="none">
+    Basicos
+  </ion-item>
+  <ion-item class="itemListadoElementosBasicos" *ngFor="let apt of actuarPasosTipicos">
+    {{apt}}
+  </ion-item>
+  <ion-item class="itemTituloUbicacion" lines="none">
+    ¿En que situacion esta?
+  </ion-item>
+  <ion-item id="tituloViaPublica" (click)="estadosListado('viaPublica')">
+    Via publica
+  </ion-item>
+  <div id="itemViaPublica" class="itemList">
+    <ion-item *ngFor="let viaPublica of listaViaPublica" class="itemListadoElementos">
+      {{viaPublica}}
+    </ion-item>
+  </div>
+  <ion-item id="tituloVehiculo" (click)="estadosListado('vehiculo')">
+    Vehiculo
+  </ion-item>
+  <div id="itemVehiculo" class="itemList">
+    <ion-item *ngFor="let vehiculo of listaVehiculo" class="itemListadoElementos">
+      {{vehiculo}}
+    </ion-item>
+  </div>
+  <ion-item id="tituloTrabajo" (click)="estadosListado('trabajo')">
+    Trabajo
+  </ion-item>
+  <div id="itemTrabajo" class="itemList">
+    <ion-item *ngFor="let trabajo of listaTrabajo" class="itemListadoElementos">
+      {{trabajo}}
+    </ion-item>
+  </div>
+  <ion-item id="tituloReuniones" (click)="estadosListado('reuniones')">
+    Reuniones
+  </ion-item>
+  <div id="itemReuniones" class="itemList">
+    <ion-item *ngFor="let reuniones of listaReuniones" class="itemListadoElementos">
+      {{reuniones}}
+    </ion-item>
+  </div>
+</ion-content>
+<ion-footer>
+  universidad distrital
+</ion-footer>

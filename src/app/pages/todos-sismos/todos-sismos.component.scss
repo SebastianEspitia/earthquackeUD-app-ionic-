@@ -1,0 +1,49 @@
+#styleList {
+    height: 100% !important;
+    width: 100% !important;
+    padding: 5%;
+}
+
+#td-Variables {
+    color: #02bffa !important;
+    width: 50% !important;
+    padding-right: 2%;
+}
+#td-result {
+    color: #020024 !important;
+    width: 50% !important;
+    padding-left: 2%;
+}
+
+#styleTitle {
+    width: 100% !important;
+    padding-left: 20% !important;
+    color: #fe952c !important;
+}
+
+ion-footer {
+    font-size: 60% !important;
+    text-align: center !important;
+}
+
+ion-header {
+    width: 100% !important;
+    height: 5% !important;
+    display: inline-flex !important;
+    #titulo {
+        padding-top: 2%;
+        padding-bottom: 2%;
+        width: 93%;
+        color: #000000 !important;
+        text-align: center !important;
+        
+    }
+    #backIcon{
+        width:  7%;
+        height: 90%;
+        padding: 1%;
+        ion-icon{
+            font-size: 150%;
+        }
+    }
+}

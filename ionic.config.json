@@ -1,0 +1,7 @@
+{
+  "name": "appEarthquake",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

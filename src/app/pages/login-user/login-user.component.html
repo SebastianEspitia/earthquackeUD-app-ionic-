@@ -1,0 +1,25 @@
+<ion-content class="background">
+  <div class="divtitle">
+    <strong class="title">EARTHQUAKE</strong>
+  </div>
+  <div class="divstyle">
+    <ion-list>
+      <ion-item id="style">
+        <ion-input type="email" placeholder="correo electornico" [(ngModel)]="correo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Contraseña" [(ngModel)]="contrasena"></ion-input>
+      </ion-item>
+      <ion-item id="style">
+        <ion-button color="primary" fill="clear" (click)="inicioSesion()">ingresar</ion-button>
+        <ion-button color="primary" fill="clear" (click)="pagRegistro()">registrarse</ion-button>
+      </ion-item>
+    </ion-list>
+    <div class="ustyle">
+      <u (click)="recuperarContrasena()">recuperar contraseña</u>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  universidad distrital
+</ion-footer>

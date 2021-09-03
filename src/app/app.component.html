@@ -1,0 +1,16 @@
+<ion-app>
+  <ion-menu side="start" menuId="first" contentId="main" disabled={{menu}}>
+    <ion-header>
+      Menu
+    </ion-header>
+    <ion-content>
+      <div id="intoApp">
+        <ion-list>
+          <ion-item (click)="clickTodosSismos()">Todos los sismos</ion-item>
+          <ion-item (click)="clickComoActuar()">como actuar</ion-item>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "710745800894",
+    "project_id": "earthquake-301615",
+    "storage_bucket": "earthquake-301615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710745800894:android:86c4a22f74c95bacee1eef",
+        "android_client_info": {
+          "package_name": "com.UDistrital.earthquake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710745800894-cbuve97c4po6iu16439fod6g7ri17v6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzXbs7Ffay7zEtIXN5Pzx_Uoqqq93Gxo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710745800894-cbuve97c4po6iu16439fod6g7ri17v6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,32 @@
+<ion-content class="background">
+  <div class="divtitle">
+    <ion-title>EARTHQUAKE</ion-title>
+  </div>
+  <div class="divstyle">
+    <ion-list>
+      <ion-item>Nombre</ion-item>
+      <ion-item>
+        <ion-input placeholder="Nombres" [(ngModel)]="user.nombre"></ion-input>
+      </ion-item>
+      <ion-item>Correo</ion-item>
+      <ion-item>
+        <ion-input name="correo" [(ngModel)]="user.correo" placeholder="Correo"></ion-input>
+      </ion-item>
+      <ion-item>Contraseña</ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="user.contrasena" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      <ion-item>Confirmacion contraseña</ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="user.confircontrasena" type="password" placeholder="Confirmar contraseña"></ion-input>
+      </ion-item>
+      <ion-item id="style">
+        <ion-button color="primary" fill="clear" (click)="registrar()">Registrarse</ion-button>
+        <ion-button color="primary" fill="clear" (click)="pagRegresar()">Regresar</ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+<ion-footer>
+  universidad distrital
+</ion-footer>

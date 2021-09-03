@@ -1,0 +1,39 @@
+ion-content.background {
+    --background: url(../../../assets/loginUser/fondo_loginUser.jpg) 0 0/100% 100% no-repeat;
+}
+
+.divstyle {
+    background-color: transparent !important;
+    width: 70% !important;
+    height: 60% !important;
+    margin-top: 10 !important;
+    margin-left: 17% !important;
+}
+.divtitle {
+    width: 70% !important;
+    height: 15% !important;
+    margin-top: 40% !important;
+    margin-left: 30% !important;
+    padding: 0%;
+}
+.title {
+    font-size: 150%;
+    color: white !important;
+    padding: 0%;
+    margin: 0%;
+}
+
+ion-item#style {
+    --background: none !important;
+}
+
+ion-button#stlebutton {
+    --padding-start: 10% !important;
+    --padding-end: 10% !important;
+}
+
+ion-footer {
+    font-size: 60% !important;
+    text-align: center !important;
+}
+

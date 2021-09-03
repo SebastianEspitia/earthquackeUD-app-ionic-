@@ -1,0 +1,89 @@
+ion-header {
+  width: 100% !important;
+  height: 5% !important;
+  display: inline-flex !important;
+  #titulo {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 93%;
+    color: #000000 !important;
+    text-align: center !important;
+  }
+}
+ion-footer {
+  font-size: 60% !important;
+  text-align: center !important;
+}
+
+ion-content {
+  #map {
+    width: 100% !important;
+    height: 80% !important;
+  }
+  #map1 {
+    width: 100%;
+    height: 90%;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    display: block;
+    &.show-map {
+      opacity: 1;
+    }
+  }
+
+  .div-item {
+    border-bottom: solid lightgrey !important;
+    width: 100% !important;
+    height: 5% !important;
+    color: #fe952c !important;
+    font-size: 80% !important;
+    text-align: center !important;
+    padding-top: 1% !important;
+    padding-bottom: 1% !important;
+  }
+
+  #div-items-EH{
+    width: 100% !important;
+  }
+
+  #div-items {
+    display: block !important;
+    width: 48% !important;
+    height: 15% !important;
+    text-align: left;
+    padding-left: 2%;
+    div {
+      padding: 1%;
+      font-size: 80%;
+    }
+    label {
+      color: #02bffa !important;
+    }
+    a {
+      color: #1939f1 !important;
+    }
+  }
+  
+  #div-items-H {
+    font-size: 80%;
+    a{
+      padding-top: 1%;
+      padding-bottom: 1%;
+      padding-left: 40%;
+      color: #1939f1 !important;;
+    }
+    #hospital{
+      display: none;
+      list-style-type: none;
+    }
+   }
+      ul{
+        list-style: none ;
+        li{
+        padding:2% !important ;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+ 
+  
