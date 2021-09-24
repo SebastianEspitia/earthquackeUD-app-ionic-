@@ -29,46 +29,49 @@ export class CreateUserComponent implements OnInit {
   }
 
   //registra el usuario por medio del midelware datos usuario
-  registrar() {
-    let token = this.fcm.getToken().then(token => {
-      // backend.registerToken(token); 
+  async registrar() {
+    this.fcm.getToken().then(token => {
+      console.log("tokendios mio");
+      //console.log(Promise.resolve(valtoken))
       console.log(token);
-    });
-    let json = JSON.stringify({
-      "nombre": this.user.nombre,
-      "correo": this.user.correo,
-      "password": this.user.contrasena,
-      "confirmarPassword": this.user.confircontrasena,
-      "token": token
-    });
-    var valJson = this.validacion(json)
-    if (valJson === "ok") {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'my-auth-token'
-        })
-      };
 
-      this.http.post("http://192.168.20.23:9999/crearUsuario", json, httpOptions)
-        .subscribe(data => {
-          var response = JSON.parse(JSON.stringify(data));
-          console.log("exitoso");
-          console.log(data)
-          if (response.respuesta.includes("fallo la creación")) {
-            this.presentAlert(response.respuesta);
-          }
-          else {
-            this.navCtrl.navigateForward("/pages-maps-earthquake")
-          }
-        }, error => {
-          console.log("error")
-          console.log(error);
-        });
-    }
-    else {
-      this.presentAlert(valJson)
-    }
+      let json = JSON.stringify({
+        "nombre": this.user.nombre,
+        "correo": this.user.correo,
+        "password": this.user.contrasena,
+        "confirmarPassword": this.user.confircontrasena,
+        "token": token
+      });
+      var valJson = this.validacion(json)
+      if (valJson === "ok") {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: 'my-auth-token'
+          })
+        };
+
+        this.http.post("http://192.168.20.23:9999/crearUsuario", json, httpOptions)
+          .subscribe(data => {
+            var response = JSON.parse(JSON.stringify(data));
+            console.log("exitoso");
+            console.log(data)
+            if (response.respuesta.includes("fallo la creación")) {
+              this.presentAlert(response.respuesta);
+            }
+            else {
+              this.navCtrl.navigateForward("/pages-maps-earthquake")
+            }
+          }, error => {
+            console.log("error")
+            console.log(error);
+          });
+      }
+      else {
+        this.presentAlert(valJson)
+      }
+    });
+
 
   }
 

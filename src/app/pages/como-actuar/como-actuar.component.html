@@ -1,6 +1,6 @@
 <ion-header>
   <div id="backIcon" (click)="backpage()"><ion-icon name="backspace-outline"></ion-icon></div>
-  <div id="titulo">EARTHQUAKE</div>
+  <div id="titulo">AlertaSismoCol</div>
 </ion-header>
 <ion-content>
 
@@ -13,7 +13,7 @@
   <ion-item class="itemTituloUbicacion" lines="none">
     ¿En que situacion esta?
   </ion-item>
-  <ion-item id="tituloViaPublica" (click)="estadosListado('viaPublica')">
+  <ion-item class="itemTituloSecond" id="tituloViaPublica" (click)="estadosListado('viaPublica')">
     Via publica
   </ion-item>
   <div id="itemViaPublica" class="itemList">
@@ -21,15 +21,15 @@
       {{viaPublica}}
     </ion-item>
   </div>
-  <ion-item id="tituloVehiculo" (click)="estadosListado('vehiculo')">
+  <ion-item class="itemTituloSecond" id="tituloVehiculo" (click)="estadosListado('vehiculo')">
     Vehiculo
   </ion-item>
-  <div id="itemVehiculo" class="itemList">
+  <div  id="itemVehiculo" class="itemList">
     <ion-item *ngFor="let vehiculo of listaVehiculo" class="itemListadoElementos">
       {{vehiculo}}
     </ion-item>
   </div>
-  <ion-item id="tituloTrabajo" (click)="estadosListado('trabajo')">
+  <ion-item class="itemTituloSecond" id="tituloTrabajo" (click)="estadosListado('trabajo')">
     Trabajo
   </ion-item>
   <div id="itemTrabajo" class="itemList">
@@ -37,7 +37,7 @@
       {{trabajo}}
     </ion-item>
   </div>
-  <ion-item id="tituloReuniones" (click)="estadosListado('reuniones')">
+  <ion-item class="itemTituloSecond" id="tituloReuniones" (click)="estadosListado('reuniones')">
     Reuniones
   </ion-item>
   <div id="itemReuniones" class="itemList">

@@ -1,6 +1,6 @@
 <ion-header>
   <div id="backIcon" (click)="backpage()"><ion-icon name="backspace-outline"></ion-icon></div>
-  <div id="titulo">EARTHQUAKE</div>
+  <div id="titulo">AlertaSismoCol</div>
 </ion-header>
 <ion-content>
   <div id="styleTitle">
@@ -9,27 +9,27 @@
   <ion-item *ngFor="let sismo of listasismos">
     <div id="styleList">
       <tr>
-        <td id="td-Variables">descripcion</td>
+        <td id="td-Variables">Descripcion:</td>
         <td>{{sismo.descripcion}}</td>
       </tr>
       <tr>
-        <td id="td-Variables">fecha</td>
+        <td id="td-Variables">Fecha:</td>
         <td>{{sismo.fecha}}</td>
       </tr>
       <tr>
-        <td id="td-Variables">latitud</td>
+        <td id="td-Variables">Latitud:</td>
         <td>{{sismo.latitud}}</td>
       </tr>
       <tr>
-        <td id="td-Variables">longitud</td>
+        <td id="td-Variables">Longitud:</td>
         <td>{{sismo.longitud}}</td>
       </tr>
       <tr>
-        <td id="td-Variables">magnitud</td>
+        <td id="td-Variables">Magnitud:</td>
         <td>{{sismo.magnitud}}</td>
       </tr>
       <tr>
-        <td id="td-Variables">tipo movimineto</td>
+        <td id="td-Variables">Tipo Movimiento:</td>
         <td>{{sismo.tipoMovimento}}</td>
       </tr>
     </div>

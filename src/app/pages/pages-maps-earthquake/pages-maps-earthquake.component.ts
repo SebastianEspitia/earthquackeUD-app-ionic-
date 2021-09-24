@@ -2,8 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController, PopoverController } from '@ionic/angular';
-import { PopoverPageMapsEarthquakeComponent } from "../indexPages"
+//import { PopoverPageMapsEarthquakeComponent } from "../indexPages";
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
+import { UpperCasePipe } from '@angular/common';
 
 
 declare var google;
@@ -16,7 +18,7 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   itemsHospital;
   sismo = "";
   estado: boolean = false;
-  constructor( private menu: MenuController, private popoverController: PopoverController, private navCtrl: NavController, private http: HttpClient, private appControle: AppComponent) { }
+  constructor(private route: ActivatedRoute, private router: Router, private menu: MenuController, private popoverController: PopoverController, private navCtrl: NavController, private http: HttpClient, private appControle: AppComponent) { }
 
   ngOnInit() {
     // this.menu.enable(true, 'first');
@@ -24,7 +26,29 @@ export class PagesMapsEarthquakeComponent implements OnInit {
     this.obtenerSismo()
     //this.loadMap() 
     this.cargarmenu();
+    //this.alertUltimoSismo()
   }
+
+  alertUltimoSismo() {
+    try {
+      this.route.queryParams.subscribe(params => {
+        console.error("obtener info111")
+        console.error(params)
+        if (this.router.getCurrentNavigation().extras.state) {
+          // this.navParams = this.router.getCurrentNavigation().extras.state.parms;
+          console.error("obtener info222")
+          console.error(params)
+        }
+      });
+
+    }
+    catch (e) {
+      console.error("error obtener info")
+      console.error(e)
+
+    }
+  }
+
   abrirmenu() {
     console.log("menu abierto");
     this.menu.toggle("first");
@@ -36,27 +60,26 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   //   console.log("entre en tocame")
   //   this.presentPopover();
   // }
-  async presentPopover(evento) {
+  // async presentPopover(evento) {
 
-    this.popoverController.dismiss({ valores: "sebastian" });
-    console.log("popover")
-    const popover = await this.popoverController.create({
-      component: PopoverPageMapsEarthquakeComponent,
-      event: evento,
-      mode: "ios"
-      //cssClass: 'my-custom-class',
-      //translucent: true
-    });
+  //   this.popoverController.dismiss({ valores: "sebastian" });
+  //   const popover = await this.popoverController.create({
+  //     component: PopoverPageMapsEarthquakeComponent,
+  //     event: evento,
+  //     mode: "ios"
+  //     //cssClass: 'my-custom-class',
+  //     //translucent: true
+  //   });
 
-    return await popover.present();
-  }
+  //   return await popover.present();
+  // }
 
   loadMap(Vlat, Vlng, descripcion) {
     // create a new map by passing HTMLElement
     const mapEle: HTMLElement = document.getElementById('map');
     // create LatLng object
-    //const myLatLng = { lat: parseFloat(Vlat), lng: parseFloat(Vlng) };
-    const myLatLng = { lat: parseFloat("4.60971"), lng: parseFloat("-74.08175") };
+    const myLatLng = { lat: parseFloat(Vlat), lng: parseFloat(Vlng) };
+    //const myLatLng = { lat: parseFloat("4.60971"), lng: parseFloat("-74.08175") };
     var mapOptions = {
       center: myLatLng,
       zoom: 12,
@@ -86,18 +109,28 @@ export class PagesMapsEarthquakeComponent implements OnInit {
 
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(
-      { location: myLatLng, radius: 500, type: "hospital" },
+      { location: myLatLng, radius: 5000, type: "hospital" },
       (results, status, pagination) => {
 
-        console.log(results)
         if (status !== "OK" || !results) return;
-        this.addPlaces(results, myLatLng, map);
-
+        this.addPlaces(results, myLatLng, map, "hos");
+        if (results.length <= 3) {
+          service.nearbySearch(
+            { location: myLatLng, radius: 500000, type: "city_hall" },
+            (results, status, pagination) => {
+              if (status !== "OK" || !results) return;
+              this.addPlaces(results, myLatLng, map, "city");
+            }
+          );
+        }
       }
     );
+
+
   }
 
-  async addPlaces(places, myLatLng, map) {
+
+  async addPlaces(places, myLatLng, map, type) {
     const placesList = document.getElementById("hospital")
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const directionsService = new google.maps.DirectionsService();
@@ -107,7 +140,7 @@ export class PagesMapsEarthquakeComponent implements OnInit {
     var Hospitales = [];
     for (const place of places) {
       if (place.geometry && place.geometry.location) {
-        console.log(place.geometry.name)
+
         let distancia = await this.obtenerDistancia(myLatLng, place.geometry.location);
         locations.push({
           value: distancia,
@@ -119,23 +152,22 @@ export class PagesMapsEarthquakeComponent implements OnInit {
         posiciones.push(distancia)
       }
     }
-    console.log("distancias ")
-    console.log(posiciones.sort(function (a, b) { return a - b; }))
     posiciones.sort(function (a, b) { return a - b; })
     for (const posicion of posiciones) {
       for (let i = 0; i < locations.length; i++) {
         if (posicion === locations[i].value) {
-          Hospitales.push(locations[i]);
+          let json = {
+            datos: locations[i],
+            distancia: posicion / 1000
+          }
+          Hospitales.push(json);
           locations.splice(i, 1)
-          console.log(JSON.stringify(locations[i]))
         }
       }
     }
-    console.log("hospitales")
-    console.log(JSON.stringify(Hospitales))
     for (const Hospital of JSON.parse(JSON.stringify(Hospitales))) {
       const image = {
-        url: Hospital.icon!,
+        url: Hospital.datos.icon!,
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
@@ -145,8 +177,8 @@ export class PagesMapsEarthquakeComponent implements OnInit {
       let marker = new google.maps.Marker({
         map,
         icon: image,
-        title: Hospital.name!,
-        position: Hospital.location,
+        title: Hospital.datos.name!,
+        position: Hospital.datos.location,
       });
       let infoWindow = new google.maps.InfoWindow();
       marker.addListener("click", () => {
@@ -156,11 +188,17 @@ export class PagesMapsEarthquakeComponent implements OnInit {
       });
 
       const li = document.createElement("li")
-      li.innerHTML = `<ul><li STYLE="list-style:none" >${Hospital.name!}</li><li STYLE="list-style:none" >direccion ${Hospital.addres!}</li></ul>`;
+      if (type == "hos") {
+        li.innerHTML = `<ul><li STYLE="list-style:none" >Hospital: ${Hospital.datos.name!}</li><li STYLE="list-style:none" >Direccion ${Hospital.datos.addres!}</li><li STYLE="list-style:none" >Distancia ${Hospital.distancia!} Km</li></ul>`;
+      }
+      else {
+        li.innerHTML = `<ul><li STYLE="list-style:none" >Municipio: ${Hospital.datos.name!}</li><li STYLE="list-style:none" >Distancia ${Hospital.distancia!} Km</li></ul>`;
+      }
+
       placesList.appendChild(li);
       li.addEventListener("click", () => {
-        map.setCenter(Hospital.location!);
-        this.calculateAndDisplayRoute(directionsService, directionsRenderer, myLatLng, Hospital.location!);
+        map.setCenter(Hospital.datos.location!);
+        this.calculateAndDisplayRoute(directionsService, directionsRenderer, myLatLng, Hospital.datos.location!);
       });
     }
   }
@@ -195,8 +233,6 @@ export class PagesMapsEarthquakeComponent implements OnInit {
         travelMode: google.maps.TravelMode.WALKING,
       })
       .then((response) => {
-        console.log("calcular ruta")
-        console.log(response)
         directionsRenderer.setDirections(response);
       })
       .catch((e) => window.alert("Directions request failed due to " + status));
@@ -204,7 +240,6 @@ export class PagesMapsEarthquakeComponent implements OnInit {
 
   showHospitales() {
     this.itemsHospital = document.getElementById("hospital");
-    console.log("abriri hospitales  " + this.itemsHospital.style.display)
     if (this.itemsHospital.style.display === "none") {
       this.itemsHospital.style.display = "block";
     }
@@ -224,10 +259,9 @@ export class PagesMapsEarthquakeComponent implements OnInit {
     };
     this.http.get("http://192.168.20.23:8888/ultimoSismoColombia")
       .subscribe(data => {
-        this.sismo = data["respuesta"]
-        this.sismo["descripcion"] = this.sismo["descripcion"].split("of")[1];
+        this.sismo = data["respuesta"][0]
+        this.sismo["descripcion"] = this.sismo["descripcion"].split("of")[1].toUpperCase();
         this.loadMap(this.sismo["latitud"], this.sismo["longitud"], this.sismo["descripcion"])
-        console.log(this.sismo)
       }, error => {
         console.log("error")
         console.log(error);
@@ -235,11 +269,9 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   }
 
   clickComoActuar() {
-    console.log("como actuar link")
     this.navCtrl.navigateForward("/como-actauar");
   }
   clickTodosSismos() {
-    console.log("todos los sismos link")
     this.navCtrl.navigateForward("/todos-sismos");
   }
 

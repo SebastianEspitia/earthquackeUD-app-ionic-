@@ -6,6 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -14,7 +15,7 @@ import { LoginUserComponent } from "./pages/indexPages";
 import { CreateUserComponent } from "./pages/indexPages";
 import { TodosSismosComponent } from "./pages/indexPages";
 import { PagesMapsEarthquakeComponent } from "./pages/indexPages";
-import { PopoverPageMapsEarthquakeComponent } from "./pages/indexPages";
+//import { PopoverPageMapsEarthquakeComponent } from "./pages/indexPages";
 import { ComoActuarComponent } from "./pages/indexPages"
 import { RecuperarConstrasenaComponent } from "./pages/indexPages"
 //fin  paginas
@@ -27,6 +28,9 @@ import { FormsModule } from "@angular/forms";
 //FMC
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 
+//audio
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+
 import { from } from 'rxjs';
 
 @NgModule({
@@ -36,7 +40,7 @@ import { from } from 'rxjs';
     CreateUserComponent,
     TodosSismosComponent,
     PagesMapsEarthquakeComponent,
-    PopoverPageMapsEarthquakeComponent,
+    //PopoverPageMapsEarthquakeComponent,
     ComoActuarComponent,
     RecuperarConstrasenaComponent],
   entryComponents: [
@@ -44,7 +48,7 @@ import { from } from 'rxjs';
     CreateUserComponent,
     TodosSismosComponent,
     PagesMapsEarthquakeComponent,
-    PopoverPageMapsEarthquakeComponent,
+   // PopoverPageMapsEarthquakeComponent,
     ComoActuarComponent,
     RecuperarConstrasenaComponent
   ],
@@ -57,8 +61,9 @@ import { from } from 'rxjs';
     StatusBar,
     SplashScreen,
     FCM,
+    NativeAudio,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

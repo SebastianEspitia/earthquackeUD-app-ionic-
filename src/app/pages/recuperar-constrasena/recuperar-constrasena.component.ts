@@ -19,12 +19,12 @@ export class RecuperarConstrasenaComponent implements OnInit {
     this.appControle.setMenu(true);
   }
 
-  
+
   //Recuperar contraseña
   //llama al midelware Datos Usuario
   recuperarContrasena() {
     let json = JSON.stringify({
-      "app":"earthQuakeColUD@gmail.com/rnytcoxptqiggqky",
+      "app": "earthQuakeColUD@gmail.com/rnytcoxptqiggqky",
       "correo": this.correo,
     });
     var valJson = this.validacion(json)
@@ -45,7 +45,7 @@ export class RecuperarConstrasenaComponent implements OnInit {
             this.presentAlert(response.respuesta);
           }
           else {
-            this.mensaje(response.respuesta) 
+            this.mensaje(response.respuesta)
             this.navCtrl.navigateForward("/login-user")
           }
         }, error => {
@@ -61,9 +61,9 @@ export class RecuperarConstrasenaComponent implements OnInit {
   //validacion de campos
   validacion(req) {
     console.log("validacion " + req)
-    req= JSON.parse(req)
+    req = JSON.parse(req)
     var response;
-    if (req.correo.includes("@gmail.com")  || req.correo.includes("@hotmail.com")) {
+    if (req.correo.includes("@gmail.com") || req.correo.includes("@hotmail.com")) {
       response = "ok";
     }
     else {
@@ -93,5 +93,10 @@ export class RecuperarConstrasenaComponent implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  //regresa al login de usuario
+  pagRegresar() {
+    this.navCtrl.back();
   }
 }

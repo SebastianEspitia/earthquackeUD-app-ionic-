@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { AppComponent } from "../../app.component";
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import {pushNotification} from '../../services/pushNotification.services';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { AppComponent } from "../../app.component";
 export class LoginUserComponent implements OnInit {
   correo: String = "";
   contrasena: String = "";
-  constructor(private navCtrl: NavController, private http: HttpClient, private alertController: AlertController, private appControle: AppComponent) { }
+  constructor(private notification:pushNotification, private fcm: FCM, private navCtrl: NavController, private http: HttpClient, private alertController: AlertController, private appControle: AppComponent) { }
 
   ngOnInit() {
     this.cargarmenu()
@@ -40,12 +42,38 @@ export class LoginUserComponent implements OnInit {
             Authorization: 'my-auth-token'
           })
         };
-
         this.http.post("http://192.168.20.23:9999/validarAutenticacion", json, httpOptions)
           .subscribe(data => {
             console.log(data)
             if (data["boolean"]) {
-              this.navCtrl.navigateForward("/pages-maps-earthquake")
+              console.log("validacion true")
+              this.fcm.getToken().then(token => {
+                let jsonUpdate = JSON.stringify({
+                  "correo": this.correo,
+                  "token": token
+                });
+                this.notification.register();
+                console.log(jsonUpdate);
+                this.http.post("http://192.168.20.23:9999/Modificar", jsonUpdate, httpOptions)
+                  .subscribe(data => {
+                    var response = JSON.parse(JSON.stringify(data));
+                    console.log("exitoso");
+                    console.log(data)
+                    if (response.result == "exitoso") {
+                      console.log("modifica el token usuario")
+                      this.appControle.cambiarEstadoSesion();
+                      this.navCtrl.navigateForward("/pages-maps-earthquake")
+                    }
+                    else {
+                      this.presentAlert(response.respuesta);
+                    }
+                  }, error => {
+                    console.log("error")
+                    console.log(error);
+                  });
+              });
+              
+             
             }
             else {
               this.presentAlert('el correo o la contraseña no son correctos')
@@ -104,5 +132,7 @@ export class LoginUserComponent implements OnInit {
     console.log("validacion " + response)
     return response;
   }
+
+  
 
 }

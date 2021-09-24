@@ -1,5 +1,5 @@
 {
-  "name": "appEarthquake",
+  "name": "AlertaSismoCol",
   "integrations": {
     "capacitor": {}
   },

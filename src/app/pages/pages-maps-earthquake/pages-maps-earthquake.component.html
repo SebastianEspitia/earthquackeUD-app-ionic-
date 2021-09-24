@@ -1,5 +1,5 @@
 <ion-header>
-  <div id="titulo">EARTHQUAKE</div>
+  <div id="titulo">AlertaSismoCol</div>
 </ion-header>
 <ion-content>
   <div id="map"></div>
@@ -9,26 +9,22 @@
   </div>
   <div id="div-items-EH">
     <div id="div-items">
-      <div>
-        <label>latitud</label>
-        {{sismo["latitud"]}}
+      <div id="div-items-DD">
+        <div><label>LATITUD: </label>
+          {{sismo["latitud"]}}</div>
+        <div id="td"><label>LONGITUD: </label>
+          {{sismo["longitud"]}}</div>
+        <div id="td"><label>MAGNITUD: </label>
+          {{sismo["magnitud"]}}</div>
       </div>
-      <div>
-        <label>longitud</label>
-        {{sismo["longitud"]}}
-      </div>
-      <div>
-        <label>magnitud</label>
-        {{sismo["magnitud"]}}
-      </div>
-      <div>
-        <a (click)="clickComoActuar()">Como Actuar</a>
-      </div>
+    <div>
+      <a (click)="clickComoActuar()">COMO ACTUAR</a>
     </div>
-    <div id="div-items-H">
-      <a (click)="showHospitales()">HOSPITALES</a>
-      <div id ="hospital" ></div>
-    </div>
+  </div>
+  <div id="div-items-H">
+    <a (click)="showHospitales()">HOSPITALES - MUNICIPIOS CERCANOS</a>
+    <div id="hospital"></div>
+  </div>
   </div>
 </ion-content>
 <ion-footer>

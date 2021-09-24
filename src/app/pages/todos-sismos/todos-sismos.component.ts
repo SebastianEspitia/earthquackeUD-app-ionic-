@@ -31,10 +31,15 @@ export class TodosSismosComponent implements OnInit {
         // console.log("exitoso ");
         // console.log(data);
         this.listasismos = data["respuesta"];
-        console.log(this.listasismos)
-        
-
-        console.log(this.listasismos);
+        for (var i = 0;i< this.listasismos.length; i++){
+          this.listasismos[i]["descripcion"]=this.listasismos[i]["descripcion"].split("of")[1];
+          let fecha=this.listasismos[i]["fecha"].split("T")
+          console.log("fecha")
+          console.log(fecha)
+          let day =fecha[0];
+          let hour=fecha[1].split(":")
+          this.listasismos[i]["fecha"]=day+" / "+hour[0]+":"+hour[1];
+        }
       }, error => {
         console.log("error")
         console.log(error);

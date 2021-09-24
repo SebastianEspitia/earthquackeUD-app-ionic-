@@ -15,6 +15,8 @@ ion-footer {
   text-align: center !important;
 }
 
+
+
 ion-content {
   #map {
     width: 100% !important;
@@ -42,13 +44,25 @@ ion-content {
     padding-bottom: 1% !important;
   }
 
+  .div-items-D{
+      width: 100% !important;
+      height: 5% !important;
+
+    }    
+
+  .td{
+    width: 100% !important;
+    height: 5% !important;
+    padding: 2% !important;
+  }
+
   #div-items-EH{
     width: 100% !important;
   }
 
   #div-items {
-    display: block !important;
-    width: 48% !important;
+    display: block;
+    width: 100% !important;
     height: 15% !important;
     text-align: left;
     padding-left: 2%;
@@ -60,6 +74,7 @@ ion-content {
       color: #02bffa !important;
     }
     a {
+      font-size: 80%;
       color: #1939f1 !important;
     }
   }
@@ -69,7 +84,7 @@ ion-content {
     a{
       padding-top: 1%;
       padding-bottom: 1%;
-      padding-left: 40%;
+      padding-left: 20%;
       color: #1939f1 !important;;
     }
     #hospital{
@@ -86,4 +101,18 @@ ion-content {
     }
   }
  
-  
+  #div-items-DD{
+    display: flex !important;
+    height: 3%;
+    font-size: 100%;
+    div{
+      align-content: center;
+      width: 30% !important;
+      padding-left: 1%;
+
+    label{
+      padding: 1%;
+
+    }
+    }
+  }

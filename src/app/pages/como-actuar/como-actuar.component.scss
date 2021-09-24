@@ -9,6 +9,9 @@
     padding-bottom: 2% !important ;
     color: #fe952c !important;
 }
+.itemTituloSecond {
+    color: #02bffa !important;
+}
 //titulo ubicacion
 .itemTituloUbicacion {
     padding-left: 20% !important;
@@ -18,12 +21,14 @@
 
 //tamaño letras items
 .itemListadoElementos {
-    font-size: 80%;
+    font-size: 100%;
     padding-left: 8% !important;
+    text-align: justify;
 }
 
 .itemListadoElementosBasicos {
-    font-size: 80%;
+    font-size: 100%;
+    text-align: justify;
 }
 
 ion-footer {
@@ -51,3 +56,5 @@ ion-header {
         }
     }
 }
+
+
