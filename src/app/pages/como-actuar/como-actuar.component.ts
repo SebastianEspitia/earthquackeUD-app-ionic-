@@ -43,14 +43,12 @@ export class ComoActuarComponent implements OnInit {
 
   //depliega el menu al precionar el boton
   abrirmenu() {
-    console.log("menu abierto");
     this.menu.toggle("first");
   }
 
   // carga la informacion de como actuar
   cargarInforActuar() {
     this.actuarPasosTipicos = comoActuar["pasosTipicos"];
-    console.log(this.actuarPasosTipicos)
     this.listaViaPublica = comoActuar["situacion"]["viaPublica"];
     this.listaVehiculo = comoActuar["situacion"]["vehiculo"];
     this.listaTrabajo = comoActuar["situacion"]["trabajo"];
@@ -59,7 +57,6 @@ export class ComoActuarComponent implements OnInit {
 
   //despliegue el listado segun la seleccion realizada en el front
   estadosListado(elemento: string) {
-    console.log(elemento)
     switch (elemento) {
       case ("viaPublica"):
         if (this.itemViaPublica.style.display === "block") {
@@ -174,8 +171,6 @@ export class ComoActuarComponent implements OnInit {
   //muestra los item de como actuar de via publica
   viaPublicaitems(estado) {
     if (estado) {
-      // var itemTituloViaPublica= document.getElementById("itemTituloViaPublica");
-      // itemTituloViaPublica.style.background="246, 245, 251"
       this.itemViaPublica.style.display = "block";
     }
     else {

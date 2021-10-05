@@ -15,7 +15,7 @@ import { LoginUserComponent } from "./pages/indexPages";
 import { CreateUserComponent } from "./pages/indexPages";
 import { TodosSismosComponent } from "./pages/indexPages";
 import { PagesMapsEarthquakeComponent } from "./pages/indexPages";
-//import { PopoverPageMapsEarthquakeComponent } from "./pages/indexPages";
+
 import { ComoActuarComponent } from "./pages/indexPages"
 import { RecuperarConstrasenaComponent } from "./pages/indexPages"
 //fin  paginas
@@ -40,7 +40,6 @@ import { from } from 'rxjs';
     CreateUserComponent,
     TodosSismosComponent,
     PagesMapsEarthquakeComponent,
-    //PopoverPageMapsEarthquakeComponent,
     ComoActuarComponent,
     RecuperarConstrasenaComponent],
   entryComponents: [
@@ -48,7 +47,6 @@ import { from } from 'rxjs';
     CreateUserComponent,
     TodosSismosComponent,
     PagesMapsEarthquakeComponent,
-   // PopoverPageMapsEarthquakeComponent,
     ComoActuarComponent,
     RecuperarConstrasenaComponent
   ],

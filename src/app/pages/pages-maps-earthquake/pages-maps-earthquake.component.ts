@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController, PopoverController } from '@ionic/angular';
-//import { PopoverPageMapsEarthquakeComponent } from "../indexPages";
+import { MenuController, NavController, PopoverController, Platform } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
 import { UpperCasePipe } from '@angular/common';
@@ -18,68 +17,38 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   itemsHospital;
   sismo = "";
   estado: boolean = false;
-  constructor(private route: ActivatedRoute, private router: Router, private menu: MenuController, private popoverController: PopoverController, private navCtrl: NavController, private http: HttpClient, private appControle: AppComponent) { }
+  constructor(private route: ActivatedRoute, private router: Router, private menu: MenuController, private popoverController: PopoverController, private navCtrl: NavController, private http: HttpClient, private appControle: AppComponent, private platform: Platform) { }
 
   ngOnInit() {
-    // this.menu.enable(true, 'first');
-    // this.menu.open('first');
     this.obtenerSismo()
-    //this.loadMap() 
+    this.blockbackbutton()
     this.cargarmenu();
-    //this.alertUltimoSismo()
   }
 
-  alertUltimoSismo() {
-    try {
-      this.route.queryParams.subscribe(params => {
-        console.error("obtener info111")
-        console.error(params)
-        if (this.router.getCurrentNavigation().extras.state) {
-          // this.navParams = this.router.getCurrentNavigation().extras.state.parms;
-          console.error("obtener info222")
-          console.error(params)
-        }
+  //bloquea el boton de atras de los Android 
+  blockbackbutton() {
+    this.platform.ready().then(() => {
+      this.platform.backButton.subscribeWithPriority(9999, () => {
+        document.addEventListener('backbutton', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }, false);
       });
 
-    }
-    catch (e) {
-      console.error("error obtener info")
-      console.error(e)
-
-    }
+    });
   }
 
   abrirmenu() {
-    console.log("menu abierto");
     this.menu.toggle("first");
-    // this.menu.enable(true, 'first');
-    // this.menu.open('first');
   }
 
-  // tocame(){
-  //   console.log("entre en tocame")
-  //   this.presentPopover();
-  // }
-  // async presentPopover(evento) {
-
-  //   this.popoverController.dismiss({ valores: "sebastian" });
-  //   const popover = await this.popoverController.create({
-  //     component: PopoverPageMapsEarthquakeComponent,
-  //     event: evento,
-  //     mode: "ios"
-  //     //cssClass: 'my-custom-class',
-  //     //translucent: true
-  //   });
-
-  //   return await popover.present();
-  // }
 
   loadMap(Vlat, Vlng, descripcion) {
-    // create a new map by passing HTMLElement
+    // obtiene el elemento HTML
     const mapEle: HTMLElement = document.getElementById('map');
-    // create LatLng object
+    // crea la posicion
     const myLatLng = { lat: parseFloat(Vlat), lng: parseFloat(Vlng) };
-    //const myLatLng = { lat: parseFloat("4.60971"), lng: parseFloat("-74.08175") };
+
     var mapOptions = {
       center: myLatLng,
       zoom: 12,
@@ -101,8 +70,12 @@ export class PagesMapsEarthquakeComponent implements OnInit {
       title: descripcion,
       optimized: false,
     });
+    //muestra el nombre de centro telurico
+    infoWindow.setContent(marker.getTitle());
+    infoWindow.open(marker.getMap(), marker);
+
+    //muestra el nombre de centro telurico al darle click 
     marker.addListener("click", () => {
-      infoWindow.close();
       infoWindow.setContent(marker.getTitle());
       infoWindow.open(marker.getMap(), marker);
     });
@@ -111,26 +84,28 @@ export class PagesMapsEarthquakeComponent implements OnInit {
     service.nearbySearch(
       { location: myLatLng, radius: 5000, type: "hospital" },
       (results, status, pagination) => {
+        if (status !== "OK" || !results) { console.log("no hay hospitales") }
 
-        if (status !== "OK" || !results) return;
         this.addPlaces(results, myLatLng, map, "hos");
+
         if (results.length <= 3) {
           service.nearbySearch(
             { location: myLatLng, radius: 500000, type: "city_hall" },
             (results, status, pagination) => {
-              if (status !== "OK" || !results) return;
+              if (status !== "OK" || !results) { console.log("no hay ciudades") }
+
               this.addPlaces(results, myLatLng, map, "city");
+
             }
           );
         }
       }
     );
-
-
   }
 
 
   async addPlaces(places, myLatLng, map, type) {
+
     const placesList = document.getElementById("hospital")
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const directionsService = new google.maps.DirectionsService();
@@ -215,7 +190,6 @@ export class PagesMapsEarthquakeComponent implements OnInit {
 
     // get distance matrix response
     var responseD = service.getDistanceMatrix(request).then((response) => {
-      //return response.rows[0].elements[0].distance.text;
       return response.rows[0].elements[0].distance.value;
 
     });
@@ -239,6 +213,7 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   }
 
   showHospitales() {
+
     this.itemsHospital = document.getElementById("hospital");
     if (this.itemsHospital.style.display === "none") {
       this.itemsHospital.style.display = "block";
@@ -261,6 +236,8 @@ export class PagesMapsEarthquakeComponent implements OnInit {
       .subscribe(data => {
         this.sismo = data["respuesta"][0]
         this.sismo["descripcion"] = this.sismo["descripcion"].split("of")[1].toUpperCase();
+        let fecha = this.sismo["fecha"].split("T")
+        this.sismo["fecha"] = fecha[0];
         this.loadMap(this.sismo["latitud"], this.sismo["longitud"], this.sismo["descripcion"])
       }, error => {
         console.log("error")
@@ -279,9 +256,6 @@ export class PagesMapsEarthquakeComponent implements OnInit {
   cargarmenu() {
     this.appControle.setMenu(false);
   }
-
-
-
 }
 
 

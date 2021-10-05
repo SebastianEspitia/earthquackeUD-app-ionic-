@@ -31,9 +31,6 @@ export class CreateUserComponent implements OnInit {
   //registra el usuario por medio del midelware datos usuario
   async registrar() {
     this.fcm.getToken().then(token => {
-      console.log("tokendios mio");
-      //console.log(Promise.resolve(valtoken))
-      console.log(token);
 
       let json = JSON.stringify({
         "nombre": this.user.nombre,
@@ -54,8 +51,6 @@ export class CreateUserComponent implements OnInit {
         this.http.post("http://192.168.20.23:9999/crearUsuario", json, httpOptions)
           .subscribe(data => {
             var response = JSON.parse(JSON.stringify(data));
-            console.log("exitoso");
-            console.log(data)
             if (response.respuesta.includes("fallo la creación")) {
               this.presentAlert(response.respuesta);
             }
@@ -90,7 +85,6 @@ export class CreateUserComponent implements OnInit {
 
   //validacion de campos
   validacion(req) {
-    console.log("validacion " + req)
     req = JSON.parse(req)
     var response;
     if (req.password === undefined || req.password === "" || req.confirmarPassword === undefined || req.confirmarPassword === "" || req.correo === undefined || req.correo === "" || req.nombre === undefined || req.nombre === "") {
@@ -102,7 +96,6 @@ export class CreateUserComponent implements OnInit {
     else {
       response = "El formato de correo no es valido";
     }
-    console.log("validacion " + response)
     return response;
   }
 

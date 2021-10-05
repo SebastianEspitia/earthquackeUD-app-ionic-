@@ -36,7 +36,6 @@ export class AppComponent {
   }
   //funcion de habilitar menu
   setMenu(value: boolean) {
-    console.log("cargar menu" + value)
     this.menu = value;
   }
 
@@ -51,11 +50,9 @@ export class AppComponent {
   mantenersesion() {
     if (window.localStorage["sesion"] == "true") {
       this.navCtrl.navigateForward("/pages-maps-earthquake");
-      console.log("mantener sesion");
       console.log(window.localStorage["sesion"]);
     }
     else {
-      console.log("mantener sesion");
       console.log(window.localStorage["sesion"]);
     }
   }
@@ -64,12 +61,10 @@ export class AppComponent {
   cambiarEstadoSesion() {
     if (window.localStorage["sesion"] == "true") {
       window.localStorage["sesion"] = false;
-      console.log("cambiar sesion");
       console.log(window.localStorage["sesion"]);
     }
     else {
       window.localStorage["sesion"] = true;
-      console.log("cambiar sesion");
       console.log(window.localStorage["sesion"]);
     }
   }

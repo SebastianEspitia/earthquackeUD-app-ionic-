@@ -28,14 +28,10 @@ export class TodosSismosComponent implements OnInit {
 
     this.http.get("http://192.168.20.23:8888/consultaSismosolombia")
       .subscribe(data => {
-        // console.log("exitoso ");
-        // console.log(data);
         this.listasismos = data["respuesta"];
         for (var i = 0;i< this.listasismos.length; i++){
           this.listasismos[i]["descripcion"]=this.listasismos[i]["descripcion"].split("of")[1];
           let fecha=this.listasismos[i]["fecha"].split("T")
-          console.log("fecha")
-          console.log(fecha)
           let day =fecha[0];
           let hour=fecha[1].split(":")
           this.listasismos[i]["fecha"]=day+" / "+hour[0]+":"+hour[1];
@@ -49,9 +45,6 @@ export class TodosSismosComponent implements OnInit {
   cargarmenu() {
     this.appControle.setMenu(false);
   }
-
- 
-
 
   backpage(){
     this.navCtrl.back();

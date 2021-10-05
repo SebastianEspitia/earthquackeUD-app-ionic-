@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { AppComponent } from "../../app.component";
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
-import {pushNotification} from '../../services/pushNotification.services';
+import { pushNotification } from '../../services/pushNotification.services';
 
 
 @Component({
@@ -14,7 +14,7 @@ import {pushNotification} from '../../services/pushNotification.services';
 export class LoginUserComponent implements OnInit {
   correo: String = "";
   contrasena: String = "";
-  constructor(private notification:pushNotification, private fcm: FCM, private navCtrl: NavController, private http: HttpClient, private alertController: AlertController, private appControle: AppComponent) { }
+  constructor(private notification: pushNotification, private fcm: FCM, private navCtrl: NavController, private http: HttpClient, private alertController: AlertController, private appControle: AppComponent) { }
 
   ngOnInit() {
     this.cargarmenu()
@@ -44,23 +44,21 @@ export class LoginUserComponent implements OnInit {
         };
         this.http.post("http://192.168.20.23:9999/validarAutenticacion", json, httpOptions)
           .subscribe(data => {
-            console.log(data)
+
             if (data["boolean"]) {
-              console.log("validacion true")
               this.fcm.getToken().then(token => {
                 let jsonUpdate = JSON.stringify({
                   "correo": this.correo,
                   "token": token
                 });
                 this.notification.register();
-                console.log(jsonUpdate);
+
                 this.http.post("http://192.168.20.23:9999/Modificar", jsonUpdate, httpOptions)
                   .subscribe(data => {
                     var response = JSON.parse(JSON.stringify(data));
-                    console.log("exitoso");
-                    console.log(data)
+
                     if (response.result == "exitoso") {
-                      console.log("modifica el token usuario")
+
                       this.appControle.cambiarEstadoSesion();
                       this.navCtrl.navigateForward("/pages-maps-earthquake")
                     }
@@ -72,8 +70,8 @@ export class LoginUserComponent implements OnInit {
                     console.log(error);
                   });
               });
-              
-             
+
+
             }
             else {
               this.presentAlert('el correo o la contraseña no son correctos')
@@ -117,7 +115,6 @@ export class LoginUserComponent implements OnInit {
 
   //validacion de campos
   validacion(req) {
-    console.log("validacion " + req)
     req = JSON.parse(req)
     var response;
     if (req.correo === "" || req.password === "") {
@@ -129,10 +126,6 @@ export class LoginUserComponent implements OnInit {
     else {
       response = "El formato de correo no es valido";
     }
-    console.log("validacion " + response)
     return response;
   }
-
-  
-
 }

@@ -10,23 +10,27 @@
   <div id="div-items-EH">
     <div id="div-items">
       <div id="div-items-DD">
-        <div><label>LATITUD: </label>
-          {{sismo["latitud"]}}</div>
-        <div id="td"><label>LONGITUD: </label>
-          {{sismo["longitud"]}}</div>
-        <div id="td"><label>MAGNITUD: </label>
-          {{sismo["magnitud"]}}</div>
+        <div><label>LATITUD:</label></div>
+        <div><label>LONGITUD:</label></div>
+        <div><label>MAGNITUD:</label></div>
+        <div><label>FECHA:</label></div>
       </div>
-    <div>
-      <a (click)="clickComoActuar()">COMO ACTUAR</a>
+      <div id="div-items-DD">
+        <div>{{sismo["latitud"]}}</div>
+        <div>{{sismo["longitud"]}}</div>
+        <div>{{sismo["magnitud"]}}</div>
+        <div>{{sismo["fecha"]}}</div>
+      </div>
+      <div>
+        <a (click)="clickComoActuar()">COMO ACTUAR</a>
+      </div>
     </div>
-  </div>
-  <div id="div-items-H">
-    <a (click)="showHospitales()">HOSPITALES - MUNICIPIOS CERCANOS</a>
-    <div id="hospital"></div>
-  </div>
+    <div id="div-items-H">
+      <a (click)="showHospitales()">HOSPITALES - MUNICIPIOS CERCANOS</a>
+      <div id="hospital"></div>
+    </div>
   </div>
 </ion-content>
 <ion-footer>
-  universidad distrital
+  UNIVERSIDAD DISTRITAL
 </ion-footer>

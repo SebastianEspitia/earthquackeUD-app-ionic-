@@ -39,8 +39,7 @@ export class RecuperarConstrasenaComponent implements OnInit {
       this.http.post("http://192.168.20.23:9999/recuperar", json, httpOptions)
         .subscribe(data => {
           var response = JSON.parse(JSON.stringify(data));
-          console.log("exitoso");
-          console.log(data)
+      
           if (response.respuesta.includes("fallo")) {
             this.presentAlert(response.respuesta);
           }
@@ -60,7 +59,6 @@ export class RecuperarConstrasenaComponent implements OnInit {
 
   //validacion de campos
   validacion(req) {
-    console.log("validacion " + req)
     req = JSON.parse(req)
     var response;
     if (req.correo.includes("@gmail.com") || req.correo.includes("@hotmail.com")) {
@@ -69,7 +67,6 @@ export class RecuperarConstrasenaComponent implements OnInit {
     else {
       response = "El formato de correo no es valido";
     }
-    console.log("validacion " + response)
     return response;
   }
 
